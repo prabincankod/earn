@@ -283,6 +283,9 @@ export const createListingFormSchema = ({
           },
         ),
       isPrivate: z.boolean().default(false),
+      agentAccess: z
+        .enum(['HUMAN_ONLY', 'AGENT_ALLOWED', 'AGENT_ONLY'])
+        .default('HUMAN_ONLY'),
       isPro: z
         .boolean()
         .optional()

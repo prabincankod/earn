@@ -20,6 +20,7 @@ export async function createSubmission(
   listingId: string,
   data: any,
   listing: any,
+  options?: { isAgent?: boolean; agentId?: string },
 ) {
   const user = await prisma.user.findUniqueOrThrow({
     where: { id: userId },
@@ -30,6 +31,7 @@ export async function createSubmission(
     listing.minRewardAsk || 0,
     listing.maxRewardAsk || 0,
     user as any,
+    { isAgent: options?.isAgent },
   ).safeParse(data);
 
   if (!validationResult.success) {
@@ -46,7 +48,10 @@ export async function createSubmission(
   }
 
   const existingSubmission = await prisma.submission.findFirst({
-    where: { userId, listingId },
+    where:
+      options?.isAgent && options.agentId
+        ? { listingId, agentId: options.agentId }
+        : { userId, listingId },
   });
 
   if (existingSubmission) throw new Error('Submission already exists');
@@ -54,6 +59,7 @@ export async function createSubmission(
   return prisma.submission.create({
     data: {
       userId,
+      agentId: options?.agentId || null,
       listingId,
       link: validatedData.link || '',
       tweet: validatedData.tweet || '',

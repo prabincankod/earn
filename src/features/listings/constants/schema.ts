@@ -36,6 +36,7 @@ export const ListingContextSchema = z
     'category-all',
     'opportunity',
     'pro',
+    'agents',
   ])
   .default('all');
 
@@ -65,6 +66,7 @@ export const listingSelect = {
   compensationType: true,
   minRewardAsk: true,
   maxRewardAsk: true,
+  agentAccess: true,
   status: true,
   isPro: true,
   _count: {

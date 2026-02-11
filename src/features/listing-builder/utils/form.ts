@@ -185,6 +185,7 @@ export const cleanTemplate = (
   reTemplate.rewards = prevValues.rewards || undefined;
   reTemplate.region = prevValues.region;
   reTemplate.isPrivate = prevValues.isPrivate;
+  reTemplate.agentAccess = prevValues.agentAccess;
   reTemplate.isFndnPaying = prevValues.isFndnPaying;
   reTemplate.hackathonId = prevValues.hackathonId || undefined;
   reTemplate.eligibility = (prevValues.eligibility as any) || undefined;
@@ -251,6 +252,7 @@ export function transformListingToFormListing(
     status: listing.status,
     isPrivate: listing.isPrivate || false,
     isPro: listing.isPro || false,
+    agentAccess: listing.agentAccess || 'HUMAN_ONLY',
     templateId: listing.templateId,
     sponsorId: listing.sponsorId,
     isPublished: listing.isPublished,
